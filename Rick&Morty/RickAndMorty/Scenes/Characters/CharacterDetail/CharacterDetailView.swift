@@ -35,6 +35,8 @@ struct CharacterDetailView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 
                 info
+                
+                episodes
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 16)
@@ -99,6 +101,30 @@ struct CharacterDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .font(.appItemDescription)
+        }
+        .padding(.horizontal, 8)
+    }
+    
+    var episodes: some View {
+        VStack(alignment: .leading, spacing: 8){
+            Text(R.string.localizable.characterDetailEpisodes())
+                .font(.appSectionTitle)
+                .foregroundColor(.appTextSectionTitle)
+            ForEach(Episode.episodes) { episode in
+                HStack{
+                    Text(episode.name)
+                        .font(.appItemLargeTitle)
+                        .foregroundColor(.appTextItemTitle)
+                    Spacer()
+                    Text(episode.code)
+                        .font(.appItemDescription)
+                        .foregroundColor(.appTextBody)
+                }
+                .padding(16)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.appBackgroundItem)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
         }
         .padding(.horizontal, 8)
     }
