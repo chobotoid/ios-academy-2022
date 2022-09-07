@@ -44,11 +44,21 @@ extension EpisodesCoordinator: EpisodesListViewEventHandling {
     func handle(event: EpisodesListView.Event) {
         switch event {
         case .didSelectEpisode(let episode):
-            guard let url = episode.rottenTomatoesUrl else {
-                return
-            }
+//            guard let url = episode.rottenTomatoesUrl else {
+//                return
+//            }
             
-            navigationController.present(createWebView(url: url), animated: true)
+//            navigationController.present(createWebView(url: url), animated: true)
+            makeEpisodesDetailView(episode: episode)
         }
+    }
+}
+
+// MARK: - Factories
+extension EpisodesCoordinator {
+    func makeEpisodesDetailView(episode: Episode) -> UIViewController {
+        UIHostingController(
+            rootView: EpisodeDetailView(episode: episode)
+        )
     }
 }
