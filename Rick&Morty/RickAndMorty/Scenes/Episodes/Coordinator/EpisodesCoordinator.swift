@@ -44,12 +44,7 @@ extension EpisodesCoordinator: EpisodesListViewEventHandling {
     func handle(event: EpisodesListView.Event) {
         switch event {
         case .didSelectEpisode(let episode):
-//            guard let url = episode.rottenTomatoesUrl else {
-//                return
-//            }
-            
-//            navigationController.present(createWebView(url: url), animated: true)
-            makeEpisodesDetailView(episode: episode)
+            navigationController.pushViewController(makeEpisodesDetailView(episode: episode), animated: true)
         }
     }
 }
@@ -60,5 +55,19 @@ extension EpisodesCoordinator {
         UIHostingController(
             rootView: EpisodeDetailView(episode: episode)
         )
+    }
+}
+
+// MARK: - Episode Detail Event Handling
+extension EpisodesCoordinator: EpisodeDetailEventHandling {
+    func handle(event: EpisodeDetailView.Event) {
+        switch event {
+        case .didTapToOpenInSafari(let episode):
+            guard let url = episode.rottenTomatoesUrl else {
+                return
+            }
+            
+            navigationController.present(createWebView(url: url), animated: true)
+        }
     }
 }

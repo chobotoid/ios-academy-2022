@@ -9,3 +9,4 @@
 protocol EpisodeDetailEventHandling: AnyObject {
     func handle(event: EpisodeDetailView.Event)
 }
+

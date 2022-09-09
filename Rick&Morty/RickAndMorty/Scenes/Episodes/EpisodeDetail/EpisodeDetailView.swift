@@ -34,15 +34,16 @@ struct EpisodeDetailView: View {
             content
         }
         .navigationTitle(episode.name)
-        .foregroundColor(.appTextBody)
-        .preferredColorScheme(.none)
         .toolbar {
             ToolbarItem {
-//                Button(action: toggleMode) {
-//                    mode.image
-//                }
+                Button(action: openInSafari) {
+                    Image.systemSafari
+                }
             }
         }
+        .foregroundColor(.appTextBody)
+        .preferredColorScheme(.none)
+        
     }
     
     var content: some View {
@@ -100,24 +101,14 @@ struct EpisodeDetailView: View {
     }
 }
 
-//// MARK: - Actions
-//private extension EpisodeDetailView {
-//    func openInSafari() {
-//        withAnimation {
-//            EpisodesCoordinator.
-//        }
-//    }
-//}
-
-extension EpisodesCoordinator: EpisodeDetailEventHandling {
-    func handle(event: EpisodeDetailView.Event) {
-        switch event {
-        case let .didTapToOpenInSafari(episode):
-            navigationController.pushViewController(
-                makeEpisodesDetailView(episode: episode),
-                animated: true
-            )
+extension EpisodeDetailView {
+    func openInSafari() {
+        if let coordinator = coordinator {
+            coordinator.handle(event: .didTapToOpenInSafari(episode: episode))
+        } else {
+            print("NO COORDINATOR") // Why does it go here?
         }
+//        coordinator?.handle(event: .didTapToOpenInSafari(episode: episode))
     }
 }
 
