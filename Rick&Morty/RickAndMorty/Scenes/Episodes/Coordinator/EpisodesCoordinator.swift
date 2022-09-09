@@ -44,6 +44,25 @@ extension EpisodesCoordinator: EpisodesListViewEventHandling {
     func handle(event: EpisodesListView.Event) {
         switch event {
         case .didSelectEpisode(let episode):
+            navigationController.pushViewController(makeEpisodesDetailView(episode: episode), animated: true)
+        }
+    }
+}
+
+// MARK: - Factories
+extension EpisodesCoordinator {
+    func makeEpisodesDetailView(episode: Episode) -> UIViewController {
+        UIHostingController(
+            rootView: EpisodeDetailView(episode: episode)
+        )
+    }
+}
+
+// MARK: - Episode Detail Event Handling
+extension EpisodesCoordinator: EpisodeDetailEventHandling {
+    func handle(event: EpisodeDetailView.Event) {
+        switch event {
+        case .didTapToOpenInSafari(let episode):
             guard let url = episode.rottenTomatoesUrl else {
                 return
             }
